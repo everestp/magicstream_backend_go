@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	controller "github.com/everestp/magicstream_backend_go/controllers"
+	routes "github.com/everestp/magicstream_backend_go/roues"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,11 +14,7 @@ func main() {
 		c.String(200, "Hello magic stream")
 
 	})
-	router.GET("/movies", controller.GetMovies())
-	router.GET("/movie/:imdb_id", controller.GetMovie())
-	router.POST("/addmovie", controller.AddMovie())
-	router.POST("/register", controller.RegisterUser())
-	router.POST("/login", controller.LoginUser())
+    routes.SetupProtectedRoutes(router, client *mongo.Client)
 	if err := router.Run(":8080"); err != nil {
 		fmt.Println("Failed to start server", err)
 	}
